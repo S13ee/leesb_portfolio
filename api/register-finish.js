@@ -52,13 +52,13 @@ module.exports = async (req, res) => {
     .update({ used: true })
     .eq('id', challengeRow.id);
 
-  // 공개키 저장
+  // 공개키 저장 (v14: registrationInfo.credential.{id,publicKey,counter})
   const { registrationInfo } = verification;
-  const { credential: regCredential } = registrationInfo;
+  const { credential: newCredential } = registrationInfo;
 
-  const credentialID = regCredential.id;
-  const credentialPublicKey = Buffer.from(regCredential.publicKey).toString('base64url');
-  const counter = regCredential.counter;
+  const credentialID = newCredential.id;
+  const credentialPublicKey = Buffer.from(newCredential.publicKey).toString('base64url');
+  const counter = newCredential.counter;
 
   const { error } = await supabase.from('passkey_credentials').insert({
     id: credentialID,

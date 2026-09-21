@@ -54,9 +54,9 @@ module.exports = async (req, res) => {
       expectedChallenge: challengeRow.challenge,
       expectedOrigin: `https://${req.headers.host.split(':')[0]}`,
       expectedRPID: req.headers.host.split(':')[0],
-      authenticator: {
-        credentialID: storedCredential.id,
-        credentialPublicKey: Buffer.from(storedCredential.public_key, 'base64url'),
+      credential: {
+        id: storedCredential.id,
+        publicKey: Buffer.from(storedCredential.public_key, 'base64url'),
         counter: storedCredential.counter,
       },
       requireUserVerification: false,
@@ -75,7 +75,7 @@ module.exports = async (req, res) => {
     .update({ used: true })
     .eq('id', challengeRow.id);
 
-  // counter 업데이트
+  // counter 업데이트 (v14: authenticationInfo.newCounter)
   await supabase
     .from('passkey_credentials')
     .update({ counter: verification.authenticationInfo.newCounter })
