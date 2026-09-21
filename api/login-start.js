@@ -13,12 +13,13 @@ module.exports = async (req, res) => {
   if (!username) return res.status(400).json({ error: 'username 필요' });
 
   // 유저 조회
-  const { data: user } = await supabase
+  const { data: user, error: fetchError } = await supabase
     .from('passkey_users')
     .select('*')
     .eq('username', username)
-    .single();
+    .maybeSingle();
 
+  if (fetchError) return res.status(500).json({ error: '유저 조회 실패', detail: fetchError.message });
   if (!user) return res.status(404).json({ error: '유저 없음' });
 
   // 등록된 패스키 조회
