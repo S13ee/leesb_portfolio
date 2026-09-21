@@ -54,11 +54,17 @@ module.exports = async (req, res) => {
 
   // 공개키 저장
   const { registrationInfo } = verification;
+  const { credential: regCredential } = registrationInfo;
+
+  const credentialID = regCredential.id;
+  const credentialPublicKey = Buffer.from(regCredential.publicKey).toString('base64url');
+  const counter = regCredential.counter;
+
   const { error } = await supabase.from('passkey_credentials').insert({
-    id: Buffer.from(registrationInfo.credentialID).toString('base64url'),
+    id: credentialID,
     user_id: userId,
-    public_key: Buffer.from(registrationInfo.credentialPublicKey).toString('base64url'),
-    counter: registrationInfo.counter,
+    public_key: credentialPublicKey,
+    counter: counter,
     device_name: deviceName || '기기',
   });
 
