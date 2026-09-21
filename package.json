@@ -20,6 +20,7 @@
   "homepage": "https://github.com/S13ee/leesb_portfolio#readme",
   "dependencies": {
     "@simplewebauthn/server": "^14.0.2",
+    "@supabase/supabase-js": "^2.116.0",
     "uuid": "^14.0.2"
   }
 }
