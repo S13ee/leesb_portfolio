@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
     .from('passkey_users')
     .select('*')
     .eq('username', username)
-    .single();
+    .maybeSingle();
 
   if (!user) {
     const { data: newUser, error } = await supabase
