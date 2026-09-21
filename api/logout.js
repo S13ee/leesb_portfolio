@@ -11,12 +11,14 @@ module.exports = async (req, res) => {
   const token = req.headers.authorization?.replace('Bearer ', '');
   if (!token) return res.status(401).json({ error: '토큰 없음' });
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from('passkey_sessions')
     .delete()
-    .eq('token', token);
+    .eq('token', token)
+    .select();
 
-  if (error) return res.status(500).json({ error: '로그아웃 실패' });
+  if (error) return res.status(500).json({ error: '로그아웃 실패', detail: error.message });
+  if (!data || data.length === 0) return res.status(404).json({ error: '세션 없음' });
 
   return res.status(200).json({ success: true });
 };
