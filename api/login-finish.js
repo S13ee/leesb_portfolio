@@ -59,6 +59,7 @@ module.exports = async (req, res) => {
         credentialPublicKey: Buffer.from(storedCredential.public_key, 'base64url'),
         counter: storedCredential.counter,
       },
+      requireUserVerification: false,
     });
   } catch (e) {
     return res.status(400).json({ error: '검증 실패', detail: e.message });

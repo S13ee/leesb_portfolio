@@ -36,6 +36,7 @@ module.exports = async (req, res) => {
       expectedChallenge: challengeRow.challenge,
       expectedOrigin: `https://${req.headers.host.split(':')[0]}`,
       expectedRPID: req.headers.host.split(':')[0],
+      requireUserVerification: false,
     });
   } catch (e) {
     return res.status(400).json({ error: '검증 실패', detail: e.message });
