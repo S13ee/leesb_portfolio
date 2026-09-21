@@ -13,19 +13,21 @@ module.exports = async (req, res) => {
   if (!username) return res.status(400).json({ error: 'username 필요' });
 
   // 기존 유저 조회 또는 생성
-  let { data: user } = await supabase
+  let { data: user, error: fetchError } = await supabase
     .from('passkey_users')
     .select('*')
     .eq('username', username)
     .maybeSingle();
 
+  if (fetchError) return res.status(500).json({ error: '유저 조회 실패', detail: fetchError.message });
+
   if (!user) {
-    const { data: newUser, error } = await supabase
+    const { data: newUser, error: insertError } = await supabase
       .from('passkey_users')
       .insert({ username })
       .select()
-      .single();
-    if (error) return res.status(500).json({ error: '유저 생성 실패' });
+      .maybeSingle();
+    if (insertError) return res.status(500).json({ error: '유저 생성 실패', detail: insertError.message });
     user = newUser;
   }
 
