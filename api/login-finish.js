@@ -1,6 +1,6 @@
 const supabase = require('./_db');
 const { verifyAuthenticationResponse } = require('@simplewebauthn/server');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -82,7 +82,7 @@ module.exports = async (req, res) => {
     .eq('id', credentialId);
 
   // 세션 토큰 발급
-  const token = uuidv4();
+  const token = randomUUID();
   await supabase.from('passkey_sessions').insert({
     user_id: userId,
     token,
