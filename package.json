@@ -1,0 +1,25 @@
+{
+  "name": "leesb_portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S13ee/leesb_portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/S13ee/leesb_portfolio/issues"
+  },
+  "homepage": "https://github.com/S13ee/leesb_portfolio#readme",
+  "dependencies": {
+    "@simplewebauthn/server": "^14.0.2",
+    "uuid": "^14.0.2"
+  }
+}
