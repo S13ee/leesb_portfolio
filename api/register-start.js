@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
     })),
     authenticatorSelection: {
       residentKey: 'preferred',
-      userVerification: 'preferred',
+      userVerification: 'discouraged',
     },
   });
 

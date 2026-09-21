@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
       id: c.id,
       type: 'public-key',
     })),
-    userVerification: 'preferred',
+    userVerification: 'discouraged',
   });
 
   // 챌린지 저장
